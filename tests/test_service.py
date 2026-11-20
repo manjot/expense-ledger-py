@@ -23,6 +23,10 @@ class TestExpenseService(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.service.add_expense("Invalid", "misc", 0)
 
+    def test_is_over_budget_detects_overspend(self) -> None:
+        self.service.add_expense("Server Cluster", "infra", 600.00)
+        self.assertTrue(self.service.is_over_budget())
+
 
 if __name__ == "__main__":
     unittest.main()

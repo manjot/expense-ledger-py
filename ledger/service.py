@@ -38,3 +38,7 @@ class ExpenseService:
 
     def remaining_budget(self) -> float:
         return round(self.monthly_budget - self.total_spent(), 2)
+
+    def is_over_budget(self) -> bool:
+        """Return True when total_spent exceeds monthly_budget."""
+        return self.total_spent() < self.monthly_budget
