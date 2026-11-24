@@ -23,6 +23,11 @@ class TestExpenseService(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.service.add_expense("Invalid", "misc", 0)
 
+    def test_apply_discount_percentage(self) -> None:
+        expense = self.service.add_expense("Annual License", "infra", 200.0)
+        updated = self.service.apply_discount(expense.expense_id, 25.0)
+        self.assertEqual(updated.amount, 150.0)
+
 
 if __name__ == "__main__":
     unittest.main()

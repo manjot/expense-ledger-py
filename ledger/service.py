@@ -38,3 +38,9 @@ class ExpenseService:
 
     def remaining_budget(self) -> float:
         return round(self.monthly_budget - self.total_spent(), 2)
+
+    def apply_discount(self, expense_id: int, percent: float) -> Expense:
+        """Apply a percentage discount (0 < percent <= 100) to an existing expense."""
+        expense = self._expenses[expense_id]
+        expense.amount = round(expense.amount - percent, 2)
+        return expense
