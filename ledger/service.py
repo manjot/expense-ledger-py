@@ -1,3 +1,4 @@
+import math
 from typing import Dict, List, Optional
 from .models import Expense
 
@@ -41,6 +42,10 @@ class ExpenseService:
 
     def apply_discount(self, expense_id: int, percent: float) -> Expense:
         """Apply a percentage discount (0 < percent <= 100) to an existing expense."""
+        if not math.isfinite(percent) or percent <= 0 or percent > 100:
+            raise ValueError("Discount percent must be between 0 and 100")
+        if expense_id not in self._expenses:
+            raise KeyError(f"Expense {expense_id} not found")
         expense = self._expenses[expense_id]
-        expense.amount = round(expense.amount - percent, 2)
+        expense.amount = round(expense.amount * (1 - percent / 100.0), 2)
         return expense
